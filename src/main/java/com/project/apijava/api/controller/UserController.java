@@ -2,16 +2,21 @@ package com.project.apijava.api.controller;
 
 import com.project.apijava.api.model.User;
 import com.project.apijava.api.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.DriverManager;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
@@ -21,13 +26,15 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
+
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<User> loginUser(@RequestBody LoginRequest loginRequest) {
         boolean authenticated = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
         if (authenticated) {
-            return ResponseEntity.ok("Login successful");
+            User user = userService.findByEmail(loginRequest.getEmail());
+            return ResponseEntity.ok(user);
         } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
+            return ResponseEntity.notFound().build();
         }
     }
 
