@@ -1,7 +1,6 @@
 package com.project.apijava.api.service;
 
 import com.project.apijava.api.model.Comment;
-import com.project.apijava.api.model.User;
 import com.project.apijava.api.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
