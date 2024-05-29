@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Comment {
     @Id
     private String id;
-    private String movie_id;
+    private String movieId;
     private String desc;
     private List<Comment> replies;
     private String type;
@@ -21,26 +21,23 @@ public class Comment {
     private Date updatedAt;
 
 
-    @DBRef
+    @DBRef(lazy = false)
     private User user;
 
-    // Getters and setters
-
-
-    public String get_id() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getMovieId() {
+    public String getMovie_id() {
         return movieId;
     }
 
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
+    public void setMovie_id(String movie_id) {
+        this.movieId = movie_id;
     }
 
     public String getDesc() {
@@ -49,6 +46,14 @@ public class Comment {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public List<Comment> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Comment> replies) {
+        this.replies = replies;
     }
 
     public String getType() {
@@ -75,20 +80,6 @@ public class Comment {
         this.updatedAt = updatedAt;
     }
 
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
-    public List<Comment> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(List<Comment> replies) {
-        this.replies = replies;
     public User getUser() {
         return user;
     }
@@ -96,4 +87,7 @@ public class Comment {
     public void setUser(User user) {
         this.user = user;
     }
+// Getters and setters
+
+
 }

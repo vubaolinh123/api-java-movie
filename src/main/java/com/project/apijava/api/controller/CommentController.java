@@ -19,8 +19,8 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
-        Comment saveComment = commentService.addComment(comment);
+    public ResponseEntity<Comment> createComment(@RequestBody Comment comment, @RequestParam String userId) {
+        Comment saveComment = commentService.saveComment(comment, userId);
         return ResponseEntity.ok(saveComment);
     }
 

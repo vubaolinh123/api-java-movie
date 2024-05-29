@@ -1,6 +1,7 @@
 package com.project.apijava.api.service;
 
 import com.project.apijava.api.model.Comment;
+import com.project.apijava.api.model.User;
 import com.project.apijava.api.repository.CommentRepository;
 import com.project.apijava.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,10 @@ public class CommentService {
     @Autowired
     private UserRepository userRepository;
 
-    public Comment addComment(Comment comment) {
-        Optional<User> userOptional = userRepository.findById(comment.getUser().getId());
-        if (userOptional.isPresent()) {
-            comment.setUser(userOptional.get());
-            return commentRepository.save(comment);
-        } else {
-            throw new RuntimeException("User not found");
-        }
+    public Comment saveComment(Comment comment, String userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        comment.setUser(user);
+        return commentRepository.save(comment);
     }
 
 //    public Comment saveComment(Comment comment) {
