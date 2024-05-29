@@ -12,16 +12,17 @@ import java.util.Objects;
 @Document(collection = "comments")
 public class Comment {
     @Id
-    private String _id;
-    private String movieId;
-    @DBRef(db = "users")
-    private User userId;
+    private String id;
+    private String movie_id;
     private String desc;
     private List<Comment> replies;
     private String type;
     private Date createdAt;
     private Date updatedAt;
 
+
+    @DBRef
+    private User user;
 
     // Getters and setters
 
@@ -88,5 +89,11 @@ public class Comment {
 
     public void setReplies(List<Comment> replies) {
         this.replies = replies;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

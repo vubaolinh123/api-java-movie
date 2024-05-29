@@ -20,7 +20,7 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
-        Comment saveComment = commentService.saveComment(comment);
+        Comment saveComment = commentService.addComment(comment);
         return ResponseEntity.ok(saveComment);
     }
 
