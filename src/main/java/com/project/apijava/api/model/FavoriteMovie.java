@@ -2,23 +2,39 @@ package com.project.apijava.api.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "favoriteMovie")
 public class FavoriteMovie {
     @Id
-    private String movie_id;
-    private User userId;
+    private String mediaId;
+    private String userId;
+    @Field("media_type")
+    private Number mediaType;
 
     // Getters and setters
-    public String getMovie_id() {
-        return movie_id;
+    public void setMediaType(Number mediaType) {
+        this.mediaType = mediaType;
     }
 
-    public void setMovie_id(String movie_id) {
-        this.movie_id = movie_id;
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
     }
 
-    public User getUserId() { return userId;}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-    public void setUserId(User userId) { this.userId = userId;}
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public Number getMediaType() {
+        return mediaType;
+    }
+
 }
