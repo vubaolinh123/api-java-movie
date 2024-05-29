@@ -19,8 +19,14 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<Comment> createComment(@RequestBody Comment comment, @RequestParam String userId) {
-        Comment saveComment = commentService.saveComment(comment, userId);
+    public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
+        Comment saveComment = commentService.saveComment(comment, comment.getUser().getId());
+        return ResponseEntity.ok(saveComment);
+    }
+
+    @PutMapping
+    public ResponseEntity<Comment> replyComment(@RequestBody Comment comment) {
+        Comment saveComment = commentService.replyComment(comment);
         return ResponseEntity.ok(saveComment);
     }
 
@@ -40,7 +46,7 @@ public class CommentController {
     public ResponseEntity<List<Comment>> getCommentByIdFilm(@PathVariable String id) {
         List<Comment> commentList = commentService.findCommentsByMovieId(id);
         System.out.println("commentText: " +commentList.stream().findAny().toString());
-        if (commentList != null && !commentList.isEmpty()) {
+        if (commentList != null) {
             return ResponseEntity.ok(commentList);  // Trả về danh sách các comment nếu tồn tại
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Trả về mã trạng thái NOT_FOUND nếu không tìm thấy comment

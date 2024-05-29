@@ -32,12 +32,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getMovie_id() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovie_id(String movie_id) {
-        this.movieId = movie_id;
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 
     public String getDesc() {
