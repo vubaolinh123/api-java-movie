@@ -18,23 +18,19 @@ public class CommentService {
     @Autowired
     private UserRepository userRepository;
 
-    public Comment addComment(String userId, String movieId, String desc, String type) {
-        Optional<User> userOptional = userRepository.findById(userId);
+    public Comment addComment(Comment comment) {
+        Optional<User> userOptional = userRepository.findById(comment.getUser().getId());
         if (userOptional.isPresent()) {
-            Comment comment = new Comment();
             comment.setUser(userOptional.get());
-            comment.setMovie_id(movieId);
-            comment.setDesc(desc);
-            comment.setType(type);
             return commentRepository.save(comment);
         } else {
             throw new RuntimeException("User not found");
         }
     }
 
-    public Comment saveComment(Comment comment) {
-        return commentRepository.save(comment);
-    }
+//    public Comment saveComment(Comment comment) {
+//        return commentRepository.save(comment);
+//    }
 
     public List<Comment> findAll() {
         return commentRepository.findAll();
