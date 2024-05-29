@@ -1,7 +1,6 @@
 package com.project.apijava.api.service;
 
 import com.project.apijava.api.model.Comment;
-import com.project.apijava.api.model.User;
 import com.project.apijava.api.repository.CommentRepository;
 import com.project.apijava.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +35,11 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Optional<Comment> findAllByMovie_id(String id) {
-        return commentRepository.findById(id);
+    public List<Comment> findCommentsByMovieId(String id) {
+        return commentRepository.getCommentsByMovieId(id);
     }
 
-//    public Comment findByIdFile(String id) {
-//        return commentRepository.findById(id);;
-//    }
+    public Optional<Comment> findById(String id) {
+        return commentRepository.findById(id);
+    }
 }
