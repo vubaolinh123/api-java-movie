@@ -1,6 +1,7 @@
 package com.project.apijava.api.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -9,9 +10,11 @@ public class Comment {
     @Id
     private String id;
     private String movie_id;
-    private User userId;
     private String desc;
     private String type;
+
+    @DBRef
+    private User user;
 
     // Getters and setters
 
@@ -43,7 +46,11 @@ public class Comment {
         this.type = type;
     }
 
-    public User getUserId() { return userId;}
+    public User getUser() {
+        return user;
+    }
 
-    public void setUserId(User userId) { this.userId = userId;}
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
