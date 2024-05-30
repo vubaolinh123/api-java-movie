@@ -6,11 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "favoriteMovie")
 public class FavoriteMovie {
-    @Id
-    private String mediaId;
     private String userId;
     @Field("media_type")
     private Number mediaType;
+
+    @Field("mediaId")
+    private String mediaId;
 
     // Getters and setters
     public void setMediaType(Number mediaType) {

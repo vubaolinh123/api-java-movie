@@ -16,16 +16,11 @@ public class FavoriteMovieController {
     @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     @PostMapping
     public ResponseEntity<FavoriteMovie> addFavoriteMovie(@RequestBody FavoriteMovie movie) {
-        System.out.println("getMediaType" + movie.getMediaType());
-//        if(!favoriteService.isMovieFavorited(movie.getUserId(),movie.getMediaId())){
-//        if(favoriteService.isMovieFavorited(movie.getUserId(), movie.getMediaId())){
-////            return ResponseEntity.badRequest().build();
-////            System.out.println("vãi cả nồi: " + movie);
-//            FavoriteMovie saveMovie = favoriteService.saveFavoriteMovie(movie);
-//            return ResponseEntity.ok(saveMovie);
-//        }
-        FavoriteMovie saveMovie = favoriteService.saveFavoriteMovie(movie);
-        return ResponseEntity.ok(saveMovie);
+        if(!favoriteService.isMovieFavorited(movie.getUserId(), movie.getMediaId())){
+            FavoriteMovie saveMovie = favoriteService.saveFavoriteMovie(movie);
+            return ResponseEntity.ok(saveMovie);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")

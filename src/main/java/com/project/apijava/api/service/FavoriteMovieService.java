@@ -1,7 +1,6 @@
 package com.project.apijava.api.service;
 
 import com.project.apijava.api.model.FavoriteMovie;
-import com.project.apijava.api.model.Product;
 import com.project.apijava.api.repository.FavoriteMovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
