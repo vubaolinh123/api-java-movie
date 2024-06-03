@@ -6,11 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+import java.util.List;
 @Service
-public class FavoriteService {
+public class FavoriteMovieService {
     @Autowired
     private FavoriteMovieRepository favoriteMovieRepository;
+
+    public boolean isMovieFavorited(String userId, String mediaId) {
+        return favoriteMovieRepository.existsByUserIdAndMediaId(userId, mediaId);
+    }
+
+    public List<FavoriteMovie> findByMovie(String userId) {
+        return favoriteMovieRepository.findByUserIdAndMediaType(userId, 0);
+    }
+
+    public List<FavoriteMovie> findByTV(String userId) {
+        return favoriteMovieRepository.findByUserIdAndMediaType(userId, 1);
+    }
 
     public FavoriteMovie saveFavoriteMovie(FavoriteMovie movie) {
         return favoriteMovieRepository.save(movie);
