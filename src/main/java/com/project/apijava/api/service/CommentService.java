@@ -24,9 +24,10 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-//    public Comment saveComment(Comment comment) {
-//        return commentRepository.save(comment);
-//    }
+    public Comment replyComment(Comment comment) {
+        comment.setReplies(comment.getReplies());
+        return commentRepository.save(comment);
+    }
 
     public List<Comment> findAll() {
         return commentRepository.findAll();
