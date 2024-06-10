@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface FavoriteMovieRepository extends MongoRepository<FavoriteMovie, String> {
+    List<FavoriteMovie> findByUserIdAndMediaId(User userId, String mediaId);
     List<FavoriteMovie> findByUserIdAndMediaType(User userId, int mediaType);
+    FavoriteMovie findByUserIdAndMediaIdAndDelete(User userId, String mediaId);
 }
