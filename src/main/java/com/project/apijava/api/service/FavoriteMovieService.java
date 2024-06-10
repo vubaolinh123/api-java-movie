@@ -1,28 +1,24 @@
 package com.project.apijava.api.service;
 
 import com.project.apijava.api.model.FavoriteMovie;
+import com.project.apijava.api.model.User;
 import com.project.apijava.api.repository.FavoriteMovieRepository;
+import com.project.apijava.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.List;
 @Service
-public class FavoriteMovieService {
+public class FavoriteService {
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Autowired
     private FavoriteMovieRepository favoriteMovieRepository;
 
-    public boolean isMovieFavorited(String userId, String mediaId) {
-        return favoriteMovieRepository.existsByUserIdAndMediaId(userId, mediaId);
-    }
-
-    public List<FavoriteMovie> findByMovie(String userId) {
-        return favoriteMovieRepository.findByUserIdAndMediaType(userId, 0);
-    }
-
-    public List<FavoriteMovie> findByTV(String userId) {
-        return favoriteMovieRepository.findByUserIdAndMediaType(userId, 1);
-    }
 
     public FavoriteMovie saveFavoriteMovie(FavoriteMovie movie) {
         return favoriteMovieRepository.save(movie);
@@ -34,5 +30,15 @@ public class FavoriteMovieService {
 
     public void deleteFavoriteMovie(String id) {
         favoriteMovieRepository.deleteById(id);
+    }
+
+    public List<FavoriteMovie> getFavoriteMovies(String userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return favoriteMovieRepository.findByUserIdAndMediaType(user, 0);
+    }
+
+    public List<FavoriteMovie> getFavoriteTvShows(String userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return favoriteMovieRepository.findByUserIdAndMediaType(user, 1);
     }
 }
