@@ -1,5 +1,6 @@
 package com.project.apijava.api.controller;
 
+import com.project.apijava.api.model.Comment;
 import com.project.apijava.api.model.User;
 import com.project.apijava.api.service.UserService;
 import org.slf4j.Logger;
@@ -21,9 +22,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User savedUser = userService.saveUser(user);
-        return ResponseEntity.ok(savedUser);
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
+        User checkUser = userService.findByEmail(user.getEmail());
+        if (checkUser == null) {
+            User savedUser = userService.saveUser(user);
+            return ResponseEntity.ok("Đăng Kí thành công");
+        } else {
+            return ResponseEntity.status(400).body("Tài khoản đã tôn tại");
+        }
     }
 
 
@@ -83,6 +89,12 @@ public class UserController {
         Optional<User> user = userService.findById(id);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/changeprofile")
+    public ResponseEntity<User> changeProfile(@RequestBody User user) {
+        User saveUser = userService.updateUser(user);
+        return ResponseEntity.ok(saveUser);
     }
 
     // Inner classes for request bodies
